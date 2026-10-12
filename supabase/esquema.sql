@@ -222,6 +222,16 @@ begin
 end;
 $$;
 
+-- ---------- Permisos de las tablas ----------
+-- (El proyecto se creó sin "exponer tablas automáticamente": aquí se da solo lo necesario.)
+revoke all on public.miembros, public.productos, public.ventas, public.venta_items, public.entradas from anon;
+grant select                         on public.miembros    to authenticated;
+grant select, insert, update, delete on public.productos   to authenticated;
+grant select                         on public.ventas      to authenticated;
+grant select                         on public.venta_items to authenticated;
+grant select                         on public.entradas    to authenticated;
+grant usage on sequence public.productos_id_seq to authenticated;
+
 -- ---------- Permisos de las funciones ----------
 revoke execute on function public.es_miembro()                                   from public, anon;
 revoke execute on function public.mi_nombre()                                    from public, anon;
