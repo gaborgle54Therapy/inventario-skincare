@@ -1,0 +1,4 @@
+# Contiene tus datos reales: nunca subirlo
+supabase/migracion.sql
+node_modules/
+.claude/

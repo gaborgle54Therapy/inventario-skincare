@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Skincare KR · Inventario</title>
+  <meta name="theme-color" content="#0B1E3D">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="iconos/icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="iconos/icono-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Skincare KR">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <!-- Pantalla de inicio de sesión -->
+  <main id="login" class="login" hidden>
+    <form id="form-login" class="login-tarjeta">
+      <div class="marca-grande">✨ SKINCARE KR</div>
+      <p class="suave">Inventario y ventas</p>
+      <label>Correo<input type="email" name="email" autocomplete="username" required></label>
+      <label>Contraseña<input type="password" name="password" autocomplete="current-password" required></label>
+      <p id="login-error" class="error" hidden></p>
+      <button class="btn btn-dorado btn-bloque" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <!-- Aplicación -->
+  <div id="app" class="app" hidden>
+    <nav class="nav" aria-label="Secciones">
+      <div class="marca">✨ SKINCARE KR</div>
+      <a href="#vender"     data-vista="vender"><span class="ico">🛒</span><span>Vender</span></a>
+      <a href="#inventario" data-vista="inventario"><span class="ico">📦</span><span>Inventario</span></a>
+      <a href="#entradas"   data-vista="entradas"><span class="ico">📥</span><span>Entradas</span></a>
+      <a href="#ventas"     data-vista="ventas"><span class="ico">🧾</span><span>Ventas</span></a>
+      <a href="#finanzas"   data-vista="finanzas"><span class="ico">💰</span><span>Finanzas</span></a>
+    </nav>
+
+    <header class="barra">
+      <h1 id="titulo-vista"></h1>
+      <span id="aviso-demo" class="chip-demo" hidden>DEMO</span>
+      <button id="btn-cuenta" class="btn-cuenta" type="button"></button>
+    </header>
+
+    <main id="vista" class="vista"></main>
+  </div>
+
+  <!-- Producto (nuevo / editar) -->
+  <dialog id="dlg-producto" class="dialogo">
+    <form id="form-producto" method="dialog">
+      <h2 id="dlg-producto-titulo">Producto</h2>
+      <input type="hidden" name="id">
+      <label>Nombre<input name="nombre" required maxlength="120"></label>
+      <label>Categoría<select name="categoria"></select></label>
+      <div class="fila-2">
+        <label>Costo (compra)<input name="precio_compra" inputmode="decimal" required></label>
+        <label>Precio de venta<input name="precio_venta" inputmode="decimal" required></label>
+      </div>
+      <div class="fila-2">
+        <label>Stock<input name="stock" inputmode="numeric" required></label>
+        <label>Avisar con stock ≤<input name="stock_minimo" inputmode="numeric" required></label>
+      </div>
+      <p id="producto-margen" class="suave"></p>
+      <p class="nota">¿Llegó mercancía? Mejor regístrala en <b>Entradas</b> para que quede el historial.</p>
+      <p id="producto-error" class="error" hidden></p>
+      <div class="acciones">
+        <button type="button" id="btn-eliminar-producto" class="btn btn-peligro">Eliminar</button>
+        <span class="espacio"></span>
+        <button type="button" class="btn btn-gris" data-cerrar>Cancelar</button>
+        <button type="submit" class="btn btn-dorado">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Cuenta / respaldo -->
+  <dialog id="dlg-cuenta" class="dialogo">
+    <h2>Cuenta</h2>
+    <p id="cuenta-info"></p>
+    <h3>Respaldo</h3>
+    <p class="suave">Descarga tus datos para guardarlos o abrirlos en Excel.</p>
+    <div class="pila">
+      <button type="button" class="btn btn-gris" id="btn-csv-productos">Productos (Excel / CSV)</button>
+      <button type="button" class="btn btn-gris" id="btn-csv-ventas">Todas las ventas (Excel / CSV)</button>
+      <button type="button" class="btn btn-gris" id="btn-json">Respaldo completo (JSON)</button>
+    </div>
+    <div class="acciones">
+      <button type="button" class="btn btn-peligro" id="btn-salir">Cerrar sesión</button>
+      <span class="espacio"></span>
+      <button type="button" class="btn btn-dorado" data-cerrar>Listo</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
